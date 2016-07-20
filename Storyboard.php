@@ -1,13 +1,13 @@
 <?php
 
-namespace lib;
+namespace Rogyar\Storyboard;
 
 use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class Storyboard
- * 
- * @package Rogyar/lib
+ *
+ * @package Rogyar/Storyboard
  */
 class Storyboard
 {
