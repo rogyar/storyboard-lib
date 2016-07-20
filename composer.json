@@ -1,0 +1,17 @@
+{
+    "name": "rogyar/storyboard-lib",
+    "description": "The main lib for storyboard application: https://github.com/rogyar/storyboard",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yaroslav Rogoza",
+            "email": "rogyar@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6 || ^7.0",
+        "rogyar/storyboard": "^1.0",
+        "symfony/yaml": "~2.1|~3.0"
+    }
+}
