@@ -105,17 +105,25 @@ class Storyboard
      * Writes content to the content storage
      *
      * @param string $content
+     * @param $appendContent - if true the passed contend will be appended to an existing one
      * @throws \Exception
      * @return bool
      */
-    public function writeContent($content)
+    public function writeContent($content, $appendContent = false)
     {
         if (!$this->validateToken()) {
             throw new \Exception('The token is invalid');
         }
-
         $this->checkStorageFilePermissions();
-        file_put_contents($this->getStoragePath(), $content);
+
+        if (!$appendContent) {
+            unlink($this->getStoragePath());
+            file_put_contents($this->getStoragePath(), $content);
+        } else {
+            $fileStrieam = fopen($this->getStoragePath(), 'a+');
+            fputs($fileStrieam, $content);
+            fclose($fileStrieam);
+        }
 
         return true;
     }
