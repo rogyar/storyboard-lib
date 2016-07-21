@@ -2,6 +2,7 @@
 
 namespace Rogyar\Storyboard;
 
+use SebastianBergmann\CodeCoverage\Exception;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -117,13 +118,12 @@ class Storyboard
         $this->checkStorageFilePermissions();
 
         if (!$appendContent) {
-            unlink($this->getStoragePath());
-            file_put_contents($this->getStoragePath(), $content);
+            $fileStream = fopen($this->getStoragePath(), 'w+');
         } else {
-            $fileStrieam = fopen($this->getStoragePath(), 'a+');
-            fputs($fileStrieam, $content);
-            fclose($fileStrieam);
+            $fileStream = fopen($this->getStoragePath(), 'a+');
         }
+        fputs($fileStream, $content);
+        fclose($fileStream);
 
         return true;
     }
@@ -154,7 +154,7 @@ class Storyboard
      */
     protected function checkStorageFilePermissions()
     {
-        if (!is_writable($this->getStoragePath())) {
+        if (!fopen($this->getStoragePath(), 'a+')) {
             throw new \Exception("The storage file is not writable. Please, check your permissions", 503);
         }
     }
